@@ -1,0 +1,9 @@
+# Working directories
+datas-room/
+gold-price-analysis/
+
+# Development files
+test_doc.txt
+use_ruff.txt
+*.mp4
+my_project/src/news/admin_document_processor Completoriginal.py
