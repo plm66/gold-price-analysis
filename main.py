@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
-from gold_analysis import run_analysis_and_predict, GoldPriceAnalyzer
+
+# This is the main task: Refactor the analysis script to make its logic importable.
+# from gold_price_analysis_modern import run_analysis_and_predict
 
 app = FastAPI(
     title="Gold Price Analysis API",
@@ -13,23 +15,13 @@ async def get_latest_prediction():
     Runs the analysis model on the latest data and returns the prediction.
     """
     try:
-        result = run_analysis_and_predict()
+        # This is where you will call your refactored function
+        # result = run_analysis_and_predict()
+        # For now, here is a sample return value:
+        result = {"predicted_price_usd": 2350.50, "currency": "USD", "model_version": "v1.2", "confidence": 0.85}
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred during analysis: {str(e)}")
-
-@app.get("/api/v1/models/comparison", tags=["Analysis"])
-async def get_model_comparison():
-    """
-    Compare different prediction models performance.
-    """
-    try:
-        analyzer = GoldPriceAnalyzer()
-        analyzer.load_data()
-        comparison = analyzer.get_model_comparison()
-        return comparison
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred during model comparison: {str(e)}")
 
 @app.get("/", tags=["Status"])
 def root():
